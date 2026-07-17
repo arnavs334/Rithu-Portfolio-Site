@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Reveal from "@/components/Reveal";
 
 const MIX_URL = "https://soundcloud.com/sparkleunicorn999/hyperpopish-mix";
 const PROFILE_URL = "https://soundcloud.com/sparkleunicorn999";
@@ -19,9 +20,12 @@ const MixSection = () => {
   }, [loaded]);
 
   return (
-    <section id="mix" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-16">
-      <h2 className="section-heading">Mix</h2>
-      <div className="mt-8">
+    <section id="mix" className="scroll-mt-16">
+      <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+        <Reveal>
+          <h2 className="section-heading">Mix</h2>
+        </Reveal>
+        <Reveal delay={0.15} className="mt-8">
         {failed ? (
           <a
             href={MIX_URL}
@@ -51,6 +55,7 @@ const MixSection = () => {
         >
           More on SoundCloud →
         </a>
+        </Reveal>
       </div>
     </section>
   );

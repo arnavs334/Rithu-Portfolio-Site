@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Download, X } from "lucide-react";
+import Reveal from "@/components/Reveal";
 import VideoTile from "@/components/VideoTile";
 import g01 from "@/assets/gallery-01.webp";
 import g02 from "@/assets/gallery-02.webp";
@@ -120,29 +121,38 @@ const GallerySection = () => {
   }, [lightbox]);
 
   return (
-    <section id="gallery" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-16">
-      <h2 className="section-heading">Gallery</h2>
+    <section id="gallery" className="bg-wash-blue scroll-mt-16">
+      <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+      <Reveal>
+        <h2 className="section-heading">Gallery</h2>
+      </Reveal>
 
-      <GroupHeading>Videos</GroupHeading>
-      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
-        {videos.map((video) => (
-          <VideoTile key={video.src} {...video} />
-        ))}
-      </div>
+      <Reveal delay={0.1}>
+        <GroupHeading>Videos</GroupHeading>
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          {videos.map((video) => (
+            <VideoTile key={video.src} {...video} />
+          ))}
+        </div>
+      </Reveal>
 
-      <GroupHeading>Live</GroupHeading>
-      <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
-        {livePhotos.map((photo) => (
-          <GalleryPhoto key={photo.thumb} photo={photo} onOpen={setLightbox} />
-        ))}
-      </div>
+      <Reveal delay={0.15}>
+        <GroupHeading>Live</GroupHeading>
+        <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
+          {livePhotos.map((photo) => (
+            <GalleryPhoto key={photo.thumb} photo={photo} onOpen={setLightbox} />
+          ))}
+        </div>
+      </Reveal>
 
-      <GroupHeading>Press</GroupHeading>
-      <div className="mt-4 grid grid-cols-2 gap-3">
-        {pressPhotos.map((photo) => (
-          <GalleryPhoto key={photo.thumb} photo={photo} onOpen={setLightbox} />
-        ))}
-      </div>
+      <Reveal delay={0.2}>
+        <GroupHeading>Press</GroupHeading>
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          {pressPhotos.map((photo) => (
+            <GalleryPhoto key={photo.thumb} photo={photo} onOpen={setLightbox} />
+          ))}
+        </div>
+      </Reveal>
 
       {lightbox && (
         <div
@@ -178,6 +188,7 @@ const GallerySection = () => {
           </a>
         </div>
       )}
+      </div>
     </section>
   );
 };

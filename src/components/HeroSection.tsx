@@ -1,7 +1,11 @@
+import { motion, useReducedMotion } from "framer-motion";
 import { SiTiktok, SiSoundcloud } from "@icons-pack/react-simple-icons";
 import heroImage from "@/assets/press-hero.webp";
 
-const HeroSection = () => (
+const HeroSection = () => {
+  const prefersReducedMotion = useReducedMotion();
+
+  return (
   <section
     id="home"
     className="relative flex min-h-screen items-end overflow-hidden"
@@ -17,7 +21,12 @@ const HeroSection = () => (
     <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/10 to-background" />
     <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/10 to-transparent" />
     <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-24 sm:px-8 sm:pb-28">
-      <div className="flex max-w-xl flex-col items-start gap-6 text-left">
+      <motion.div
+        initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: "easeOut" }}
+        className="flex max-w-xl flex-col items-start gap-6 text-left"
+      >
       <h1
         data-text="RITHU"
         className="glitch font-display text-6xl font-black tracking-tight sm:text-8xl md:text-9xl"
@@ -47,7 +56,7 @@ const HeroSection = () => (
           <SiSoundcloud size={22} />
         </a>
       </div>
-      </div>
+      </motion.div>
     </div>
     <a
       href="#about"
@@ -68,6 +77,7 @@ const HeroSection = () => (
       </svg>
     </a>
   </section>
-);
+  );
+};
 
 export default HeroSection;
