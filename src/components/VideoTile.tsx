@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Download } from "lucide-react";
+import { Download, Maximize2 } from "lucide-react";
 
 type VideoTileProps = {
   src: string;
@@ -36,6 +36,33 @@ const VideoTile = ({ src, poster, label, downloadName }: VideoTileProps) => {
     return () => observer.disconnect();
   }, []);
 
+  // Show native controls (scrub/volume) only while fullscreen.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const onFullscreenChange = () => {
+      video.controls = document.fullscreenElement === video;
+    };
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    return () =>
+      document.removeEventListener("fullscreenchange", onFullscreenChange);
+  }, []);
+
+  const enterFullscreen = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    // iOS Safari has no requestFullscreen on video; it uses its own method
+    // that opens the native player.
+    const iosVideo = video as HTMLVideoElement & {
+      webkitEnterFullscreen?: () => void;
+    };
+    if (video.requestFullscreen) {
+      video.requestFullscreen().catch(() => {});
+    } else if (iosVideo.webkitEnterFullscreen) {
+      iosVideo.webkitEnterFullscreen();
+    }
+  };
+
   return (
     <div className="group relative aspect-square overflow-hidden rounded-xl border border-border">
       <video
@@ -58,14 +85,24 @@ const VideoTile = ({ src, poster, label, downloadName }: VideoTileProps) => {
           {muted ? "🔇 tap for sound" : "🔊 sound on"}
         </span>
       </button>
-      <a
-        href={src}
-        download={downloadName}
-        aria-label={`Download ${label}`}
-        className="absolute right-2 top-2 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-background/70 text-foreground opacity-0 backdrop-blur transition-opacity hover:text-primary focus-visible:opacity-100 group-hover:opacity-100"
-      >
-        <Download size={16} />
-      </a>
+      <div className="absolute right-2 top-2 z-20 flex gap-2">
+        <button
+          type="button"
+          onClick={enterFullscreen}
+          aria-label={`Play ${label} fullscreen`}
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-background/70 text-foreground opacity-0 backdrop-blur transition-opacity hover:text-primary focus-visible:opacity-100 group-hover:opacity-100"
+        >
+          <Maximize2 size={16} />
+        </button>
+        <a
+          href={src}
+          download={downloadName}
+          aria-label={`Download ${label}`}
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-background/70 text-foreground opacity-0 backdrop-blur transition-opacity hover:text-primary focus-visible:opacity-100 group-hover:opacity-100"
+        >
+          <Download size={16} />
+        </a>
+      </div>
     </div>
   );
 };

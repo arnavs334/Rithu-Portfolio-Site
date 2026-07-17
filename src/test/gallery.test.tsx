@@ -15,6 +15,9 @@ describe("GallerySection", () => {
     expect(
       screen.getAllByRole("button", { name: /unmute/i }).length
     ).toBe(3);
+    expect(
+      screen.getAllByRole("button", { name: /fullscreen/i }).length
+    ).toBe(3);
   });
 
   it("groups media under Videos, Live, and Press headings", () => {
