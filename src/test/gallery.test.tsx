@@ -25,12 +25,27 @@ describe("GallerySection", () => {
       ).toBeInTheDocument();
     }
   });
+
+  it("offers a download link for every photo and video", () => {
+    render(<GallerySection />);
+    const downloads = screen.getAllByRole("link", { name: /^download /i });
+    // 14 photos + 3 videos
+    expect(downloads.length).toBe(17);
+    for (const link of downloads) {
+      expect(link.getAttribute("download")).toMatch(/^rithu-.+\.(webp|mp4)$/);
+    }
+  });
 });
 
 describe("VideoTile", () => {
   it("toggles mute on click", () => {
     const { container } = render(
-      <VideoTile src="loop.mp4" poster="poster.jpg" label="District set" width={720} height={1280} />
+      <VideoTile
+        src="loop.mp4"
+        poster="poster.jpg"
+        label="District set"
+        downloadName="rithu-district-set-1.mp4"
+      />
     );
     const video = container.querySelector("video");
     const button = screen.getByRole("button", { name: /unmute district set/i });

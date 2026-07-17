@@ -1,3 +1,4 @@
+import { Download } from "lucide-react";
 import VideoTile from "@/components/VideoTile";
 import g01 from "@/assets/gallery-01.webp";
 import g02 from "@/assets/gallery-02.webp";
@@ -20,50 +21,53 @@ import poster1 from "@/assets/district-poster-1.jpg";
 import poster2 from "@/assets/district-poster-2.jpg";
 import poster3 from "@/assets/district-poster-3.jpg";
 
-type Photo = { src: string; alt: string; width: number; height: number };
-type Video = {
-  src: string;
-  poster: string;
-  label: string;
-  width: number;
-  height: number;
-};
+type Photo = { src: string; alt: string; downloadName: string };
 
-const videos: Video[] = [
-  { src: loop1, poster: poster1, label: "District Atlanta set", width: 720, height: 1280 },
-  { src: loop2, poster: poster2, label: "District Atlanta closing set", width: 720, height: 1280 },
-  { src: loop3, poster: poster3, label: "District Atlanta January set", width: 720, height: 406 },
+const videos = [
+  { src: loop1, poster: poster1, label: "District Atlanta set", downloadName: "rithu-district-set-1.mp4" },
+  { src: loop2, poster: poster2, label: "District Atlanta closing set", downloadName: "rithu-district-set-2.mp4" },
+  { src: loop3, poster: poster3, label: "District Atlanta January set", downloadName: "rithu-district-set-3.mp4" },
 ];
 
 const livePhotos: Photo[] = [
-  { src: g01, alt: "Rithu behind the decks in red neon light", width: 1200, height: 801 },
-  { src: g02, alt: "A packed crowd raises their hands under the venue's globe-light ceiling", width: 1200, height: 800 },
-  { src: g03, alt: "Rithu mixing at the DJ booth with a blue cloud visual behind her", width: 1200, height: 800 },
-  { src: g04, alt: "Dancers packed close beneath the glowing blue RITHU video wall", width: 1200, height: 1682 },
-  { src: g05, alt: "A blurred long-exposure shot of Rithu working the decks", width: 1200, height: 858 },
-  { src: g06, alt: "Rithu touching up her lipstick at the booth between songs", width: 1200, height: 1680 },
-  { src: g07, alt: "The dance floor lit in pink beneath the RITHU screen", width: 1200, height: 607 },
-  { src: g08, alt: "A full house viewed from the balcony under globe lights", width: 1200, height: 800 },
-  { src: g09, alt: "Crowd dancing under the glowing RITHU display panels", width: 1200, height: 858 },
-  { src: g10, alt: "A backlit silhouette of Rithu at the decks, lens flare catching the light", width: 1200, height: 1680 },
-  { src: g11, alt: "Rithu silhouetted at the Pioneer DJ setup mid-set", width: 1200, height: 1800 },
-  { src: g12, alt: "Rithu at the decks with a red ATL graphic glowing behind her", width: 1200, height: 1801 },
+  { src: g01, alt: "Rithu behind the decks in red neon light", downloadName: "rithu-live-01.webp" },
+  { src: g02, alt: "A packed crowd raises their hands under the venue's globe-light ceiling", downloadName: "rithu-live-02.webp" },
+  { src: g03, alt: "Rithu mixing at the DJ booth with a blue cloud visual behind her", downloadName: "rithu-live-03.webp" },
+  { src: g04, alt: "Dancers packed close beneath the glowing blue RITHU video wall", downloadName: "rithu-live-04.webp" },
+  { src: g05, alt: "A blurred long-exposure shot of Rithu working the decks", downloadName: "rithu-live-05.webp" },
+  { src: g06, alt: "Rithu touching up her lipstick at the booth between songs", downloadName: "rithu-live-06.webp" },
+  { src: g07, alt: "The dance floor lit in pink beneath the RITHU screen", downloadName: "rithu-live-07.webp" },
+  { src: g08, alt: "A full house viewed from the balcony under globe lights", downloadName: "rithu-live-08.webp" },
+  { src: g09, alt: "Crowd dancing under the glowing RITHU display panels", downloadName: "rithu-live-09.webp" },
+  { src: g10, alt: "A backlit silhouette of Rithu at the decks, lens flare catching the light", downloadName: "rithu-live-10.webp" },
+  { src: g11, alt: "Rithu silhouetted at the Pioneer DJ setup mid-set", downloadName: "rithu-live-11.webp" },
+  { src: g12, alt: "Rithu at the decks with a red ATL graphic glowing behind her", downloadName: "rithu-live-12.webp" },
 ];
 
 const pressPhotos: Photo[] = [
-  { src: press1, alt: "Rithu studio press shot against a periwinkle backdrop", width: 1600, height: 1083 },
-  { src: press2, alt: "Rithu studio portrait, arms crossed, gazing off camera", width: 1400, height: 1813 },
+  { src: press1, alt: "Rithu studio press shot against a periwinkle backdrop", downloadName: "rithu-press-01.webp" },
+  { src: press2, alt: "Rithu studio portrait, arms crossed, gazing off camera", downloadName: "rithu-press-02.webp" },
 ];
 
-const GalleryPhoto = ({ src, alt, width, height }: Photo) => (
-  <img
-    src={src}
-    alt={alt}
-    loading="lazy"
-    width={width}
-    height={height}
-    className="w-full rounded-xl border border-border"
-  />
+/* Uniform tiles: every image is cropped to the group's fixed aspect ratio so
+   mixed portrait/landscape sources still line up in a clean grid. */
+const GalleryPhoto = ({ src, alt, downloadName }: Photo) => (
+  <div className="group relative aspect-[4/5] overflow-hidden rounded-xl border border-border">
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+    <a
+      href={src}
+      download={downloadName}
+      aria-label={`Download ${alt}`}
+      className="absolute right-2 top-2 flex h-9 w-9 items-center justify-center rounded-full bg-background/70 text-foreground opacity-0 backdrop-blur transition-opacity hover:text-primary focus-visible:opacity-100 group-hover:opacity-100"
+    >
+      <Download size={16} />
+    </a>
+  </div>
 );
 
 const GroupHeading = ({ children }: { children: string }) => (
@@ -77,21 +81,21 @@ const GallerySection = () => (
     <h2 className="section-heading">Gallery</h2>
 
     <GroupHeading>Videos</GroupHeading>
-    <div className="mt-4 grid items-start gap-3 sm:grid-cols-3">
+    <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
       {videos.map((video) => (
         <VideoTile key={video.src} {...video} />
       ))}
     </div>
 
     <GroupHeading>Live</GroupHeading>
-    <div className="mt-4 columns-2 gap-3 md:columns-3 [&>*]:mb-3 [&>*]:break-inside-avoid">
+    <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
       {livePhotos.map((photo) => (
         <GalleryPhoto key={photo.src} {...photo} />
       ))}
     </div>
 
     <GroupHeading>Press</GroupHeading>
-    <div className="mt-4 grid items-start gap-3 sm:grid-cols-2">
+    <div className="mt-4 grid grid-cols-2 gap-3">
       {pressPhotos.map((photo) => (
         <GalleryPhoto key={photo.src} {...photo} />
       ))}

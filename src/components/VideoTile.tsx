@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import { Download } from "lucide-react";
 
 type VideoTileProps = {
   src: string;
   poster: string;
   label: string;
-  width: number;
-  height: number;
+  downloadName: string;
 };
 
-const VideoTile = ({ src, poster, label, width, height }: VideoTileProps) => {
+const VideoTile = ({ src, poster, label, downloadName }: VideoTileProps) => {
   const [muted, setMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -37,12 +37,7 @@ const VideoTile = ({ src, poster, label, width, height }: VideoTileProps) => {
   }, []);
 
   return (
-    <button
-      type="button"
-      aria-label={muted ? `Unmute ${label}` : `Mute ${label}`}
-      onClick={() => setMuted((m) => !m)}
-      className="group relative block w-full overflow-hidden rounded-xl border border-border"
-    >
+    <div className="group relative aspect-square overflow-hidden rounded-xl border border-border">
       <video
         ref={videoRef}
         src={src}
@@ -51,14 +46,27 @@ const VideoTile = ({ src, poster, label, width, height }: VideoTileProps) => {
         loop
         playsInline
         preload="metadata"
-        width={width}
-        height={height}
-        className="w-full"
+        className="h-full w-full object-cover"
       />
-      <span className="absolute bottom-2 right-2 rounded-full bg-background/70 px-2.5 py-1 text-xs text-foreground opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">
-        {muted ? "🔇 tap for sound" : "🔊 sound on"}
-      </span>
-    </button>
+      <button
+        type="button"
+        aria-label={muted ? `Unmute ${label}` : `Mute ${label}`}
+        onClick={() => setMuted((m) => !m)}
+        className="absolute inset-0 z-10"
+      >
+        <span className="absolute bottom-2 right-2 rounded-full bg-background/70 px-2.5 py-1 text-xs text-foreground opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">
+          {muted ? "🔇 tap for sound" : "🔊 sound on"}
+        </span>
+      </button>
+      <a
+        href={src}
+        download={downloadName}
+        aria-label={`Download ${label}`}
+        className="absolute right-2 top-2 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-background/70 text-foreground opacity-0 backdrop-blur transition-opacity hover:text-primary focus-visible:opacity-100 group-hover:opacity-100"
+      >
+        <Download size={16} />
+      </a>
+    </div>
   );
 };
 
