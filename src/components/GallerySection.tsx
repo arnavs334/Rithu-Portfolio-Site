@@ -157,7 +157,7 @@ const GallerySection = () => {
             type="button"
             onClick={() => scrollStrip(-1)}
             aria-label="Scroll live photos left"
-            className="absolute -left-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/90 text-foreground shadow-lg transition-colors hover:border-primary/50 md:flex"
+            className="absolute -left-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/90 text-foreground shadow-lg transition-colors hover:border-primary/50 md:-left-3 md:h-10 md:w-10"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -178,7 +178,7 @@ const GallerySection = () => {
             type="button"
             onClick={() => scrollStrip(1)}
             aria-label="Scroll live photos right"
-            className="absolute -right-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/90 text-foreground shadow-lg transition-colors hover:border-primary/50 md:flex"
+            className="absolute -right-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/90 text-foreground shadow-lg transition-colors hover:border-primary/50 md:-right-3 md:h-10 md:w-10"
           >
             <ChevronRight className="h-5 w-5" />
           </button>

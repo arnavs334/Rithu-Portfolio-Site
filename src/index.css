@@ -60,15 +60,17 @@
     @apply flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card/60 text-foreground transition-all hover:scale-110 hover:border-primary hover:text-primary;
   }
 
-  /* Full-height hero that stays clear of iOS Safari's bottom toolbar:
-     100vh includes the area behind the toolbar, 100svh does not. */
+  /* Full-height hero that stays clear of iOS Safari's bottom toolbar.
+     100vh includes the area behind the toolbar; 100dvh tracks the actual
+     visible viewport — full coverage on load, and the bottom-anchored
+     content always sits above the toolbar. */
   .hero-viewport {
     min-height: 100vh;
   }
 
-  @supports (min-height: 100svh) {
+  @supports (min-height: 100dvh) {
     .hero-viewport {
-      min-height: 100svh;
+      min-height: 100dvh;
     }
   }
 
