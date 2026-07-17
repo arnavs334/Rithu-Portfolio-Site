@@ -31,20 +31,20 @@ type Tile =
 
 const tiles: Tile[] = [
   { kind: "photo", src: g01, alt: "Rithu behind the decks in red neon light", width: 1200, height: 801 },
-  { kind: "photo", src: g02, alt: "Rithu performing live", width: 1200, height: 800 },
+  { kind: "photo", src: g02, alt: "A packed crowd raises their hands under the venue's globe-light ceiling", width: 1200, height: 800 },
   { kind: "video", src: loop1, poster: poster1, label: "District Atlanta set", width: 720, height: 1280 },
-  { kind: "photo", src: g03, alt: "Rithu performing live", width: 1200, height: 800 },
-  { kind: "photo", src: g04, alt: "Crowd at a Rithu set", width: 1200, height: 1682 },
-  { kind: "photo", src: g05, alt: "Rithu performing live", width: 1200, height: 858 },
+  { kind: "photo", src: g03, alt: "Rithu mixing at the DJ booth with a blue cloud visual behind her", width: 1200, height: 800 },
+  { kind: "photo", src: g04, alt: "Dancers packed close beneath the glowing blue RITHU video wall", width: 1200, height: 1682 },
+  { kind: "photo", src: g05, alt: "A blurred long-exposure shot of Rithu working the decks", width: 1200, height: 858 },
   { kind: "video", src: loop2, poster: poster2, label: "District Atlanta closing set", width: 720, height: 1280 },
-  { kind: "photo", src: g06, alt: "Rithu performing live", width: 1200, height: 1680 },
-  { kind: "photo", src: g07, alt: "Rithu on stage", width: 1200, height: 607 },
-  { kind: "photo", src: g08, alt: "Rithu performing live", width: 1200, height: 800 },
+  { kind: "photo", src: g06, alt: "Rithu touching up her lipstick at the booth between songs", width: 1200, height: 1680 },
+  { kind: "photo", src: g07, alt: "The dance floor lit in pink beneath the RITHU screen", width: 1200, height: 607 },
+  { kind: "photo", src: g08, alt: "A full house viewed from the balcony under globe lights", width: 1200, height: 800 },
   { kind: "video", src: loop3, poster: poster3, label: "District Atlanta January set", width: 720, height: 406 },
-  { kind: "photo", src: g09, alt: "Rithu performing live", width: 1200, height: 858 },
-  { kind: "photo", src: g10, alt: "Rithu on stage", width: 1200, height: 1680 },
-  { kind: "photo", src: g11, alt: "Rithu performing live", width: 1200, height: 1800 },
-  { kind: "photo", src: g12, alt: "Rithu performing live", width: 1200, height: 1801 },
+  { kind: "photo", src: g09, alt: "Crowd dancing under the glowing RITHU display panels", width: 1200, height: 858 },
+  { kind: "photo", src: g10, alt: "A backlit silhouette of Rithu at the decks, lens flare catching the light", width: 1200, height: 1680 },
+  { kind: "photo", src: g11, alt: "Rithu silhouetted at the Pioneer DJ setup mid-set", width: 1200, height: 1800 },
+  { kind: "photo", src: g12, alt: "Rithu at the decks with a red ATL graphic glowing behind her", width: 1200, height: 1801 },
 ];
 
 const GallerySection = () => (

@@ -7,7 +7,7 @@ describe("GallerySection", () => {
   it("renders lazy-loaded photos and video tiles", () => {
     render(<GallerySection />);
     const images = screen.getAllByRole("img");
-    expect(images.length).toBeGreaterThanOrEqual(10);
+    expect(images.length).toBe(12);
     for (const img of images) {
       expect(img).toHaveAttribute("loading", "lazy");
     }
