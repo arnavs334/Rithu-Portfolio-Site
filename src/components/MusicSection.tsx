@@ -11,6 +11,7 @@ const MusicSection = () => {
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
+    if (loaded) return;
     const timer = setTimeout(() => {
       if (!loaded) setFailed(true);
     }, 6000);
@@ -36,6 +37,7 @@ const MusicSection = () => {
             width="100%"
             height="400"
             allow="autoplay"
+            loading="lazy"
             src={EMBED_SRC}
             onLoad={() => setLoaded(true)}
             className="rounded-xl border border-border"
