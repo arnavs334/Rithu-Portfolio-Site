@@ -4,18 +4,19 @@ import heroImage from "@/assets/press-hero.webp";
 const HeroSection = () => (
   <section
     id="home"
-    className="relative flex min-h-screen items-center overflow-hidden"
+    className="relative flex min-h-screen items-end overflow-hidden"
   >
-    {/* keep her face right of center so the left column stays clear for text */}
+    {/* image is oversized and pinned right so she sits clear of the
+       bottom-left text block */}
     <img
       src={heroImage}
       alt="Rithu press shot"
-      className="absolute inset-0 h-full w-full object-cover object-[70%_20%]"
+      className="absolute inset-y-0 left-0 h-full w-[115%] max-w-none object-cover object-top"
       {...({ fetchpriority: "high" } as Record<string, string>)}
     />
-    <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/20 to-background" />
-    <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/20 to-transparent" />
-    <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-8">
+    <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/10 to-background" />
+    <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/10 to-transparent" />
+    <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-24 sm:px-8 sm:pb-28">
       <div className="flex max-w-xl flex-col items-start gap-6 text-left">
       <h1
         data-text="RITHU"

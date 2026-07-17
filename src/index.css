@@ -10,6 +10,7 @@
     --muted: 240 10% 16%;
     --muted-foreground: 240 10% 65%;
     --primary: 235 65% 72%; /* periwinkle from press shots */
+    --primary-foreground: 240 15% 8%;
     --secondary: 270 60% 68%; /* violet */
     --accent: 320 85% 66%; /* hyperpop magenta */
     --glitch-cold: 190 95% 65%; /* icy cyan, glitch RGB-split only */
