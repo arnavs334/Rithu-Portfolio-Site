@@ -1,7 +1,7 @@
 import { SiTiktok, SiSoundcloud } from "@icons-pack/react-simple-icons";
 
 const Footer = () => (
-  <footer id="contact" className="border-t border-border px-4 py-20 text-center">
+  <footer id="contact" className="border-t border-border px-4 py-14 text-center">
     <h2 className="font-display text-2xl font-extrabold uppercase tracking-tight sm:text-3xl">
       Bookings
     </h2>

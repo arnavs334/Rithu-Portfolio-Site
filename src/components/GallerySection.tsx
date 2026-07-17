@@ -1,4 +1,5 @@
-import { Download } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Download, X } from "lucide-react";
 import VideoTile from "@/components/VideoTile";
 import g01 from "@/assets/gallery-01.webp";
 import g02 from "@/assets/gallery-02.webp";
@@ -21,7 +22,10 @@ import poster1 from "@/assets/district-poster-1.jpg";
 import poster2 from "@/assets/district-poster-2.jpg";
 import poster3 from "@/assets/district-poster-3.jpg";
 
-type Photo = { src: string; alt: string; downloadName: string };
+/* thumb: web-optimized webp shown in the grid (cropped to the tile).
+   full: untouched original in public/downloads — what the lightbox shows
+   and what the download button saves. */
+type Photo = { thumb: string; full: string; alt: string; downloadName: string };
 
 const videos = [
   { src: loop1, poster: poster1, label: "District Atlanta set", downloadName: "rithu-district-set-1.mp4" },
@@ -30,39 +34,66 @@ const videos = [
 ];
 
 const livePhotos: Photo[] = [
-  { src: g01, alt: "Rithu behind the decks in red neon light", downloadName: "rithu-live-01.webp" },
-  { src: g02, alt: "A packed crowd raises their hands under the venue's globe-light ceiling", downloadName: "rithu-live-02.webp" },
-  { src: g03, alt: "Rithu mixing at the DJ booth with a blue cloud visual behind her", downloadName: "rithu-live-03.webp" },
-  { src: g04, alt: "Dancers packed close beneath the glowing blue RITHU video wall", downloadName: "rithu-live-04.webp" },
-  { src: g05, alt: "A blurred long-exposure shot of Rithu working the decks", downloadName: "rithu-live-05.webp" },
-  { src: g06, alt: "Rithu touching up her lipstick at the booth between songs", downloadName: "rithu-live-06.webp" },
-  { src: g07, alt: "The dance floor lit in pink beneath the RITHU screen", downloadName: "rithu-live-07.webp" },
-  { src: g08, alt: "A full house viewed from the balcony under globe lights", downloadName: "rithu-live-08.webp" },
-  { src: g09, alt: "Crowd dancing under the glowing RITHU display panels", downloadName: "rithu-live-09.webp" },
-  { src: g10, alt: "A backlit silhouette of Rithu at the decks, lens flare catching the light", downloadName: "rithu-live-10.webp" },
-  { src: g11, alt: "Rithu silhouetted at the Pioneer DJ setup mid-set", downloadName: "rithu-live-11.webp" },
-  { src: g12, alt: "Rithu at the decks with a red ATL graphic glowing behind her", downloadName: "rithu-live-12.webp" },
-];
+  { thumb: g01, alt: "Rithu behind the decks in red neon light" },
+  { thumb: g02, alt: "A packed crowd raises their hands under the venue's globe-light ceiling" },
+  { thumb: g03, alt: "Rithu mixing at the DJ booth with a blue cloud visual behind her" },
+  { thumb: g04, alt: "Dancers packed close beneath the glowing blue RITHU video wall" },
+  { thumb: g05, alt: "A blurred long-exposure shot of Rithu working the decks" },
+  { thumb: g06, alt: "Rithu touching up her lipstick at the booth between songs" },
+  { thumb: g07, alt: "The dance floor lit in pink beneath the RITHU screen" },
+  { thumb: g08, alt: "A full house viewed from the balcony under globe lights" },
+  { thumb: g09, alt: "Crowd dancing under the glowing RITHU display panels" },
+  { thumb: g10, alt: "A backlit silhouette of Rithu at the decks, lens flare catching the light" },
+  { thumb: g11, alt: "Rithu silhouetted at the Pioneer DJ setup mid-set" },
+  { thumb: g12, alt: "Rithu at the decks with a red ATL graphic glowing behind her" },
+].map((photo, i) => {
+  const downloadName = `rithu-live-${String(i + 1).padStart(2, "0")}.jpg`;
+  return { ...photo, full: `/downloads/${downloadName}`, downloadName };
+});
 
 const pressPhotos: Photo[] = [
-  { src: press1, alt: "Rithu studio press shot against a periwinkle backdrop", downloadName: "rithu-press-01.webp" },
-  { src: press2, alt: "Rithu studio portrait, arms crossed, gazing off camera", downloadName: "rithu-press-02.webp" },
+  {
+    thumb: press1,
+    full: "/downloads/rithu-press-01.png",
+    alt: "Rithu studio press shot against a periwinkle backdrop",
+    downloadName: "rithu-press-01.png",
+  },
+  {
+    thumb: press2,
+    full: "/downloads/rithu-press-02.png",
+    alt: "Rithu studio portrait, arms crossed, gazing off camera",
+    downloadName: "rithu-press-02.png",
+  },
 ];
 
 /* Uniform tiles: every image is cropped to the group's fixed aspect ratio so
-   mixed portrait/landscape sources still line up in a clean grid. */
-const GalleryPhoto = ({ src, alt, downloadName }: Photo) => (
+   mixed portrait/landscape sources still line up in a clean grid. Clicking a
+   tile opens the uncropped original in the lightbox. */
+const GalleryPhoto = ({
+  photo,
+  onOpen,
+}: {
+  photo: Photo;
+  onOpen: (photo: Photo) => void;
+}) => (
   <div className="group relative aspect-[4/5] overflow-hidden rounded-xl border border-border">
-    <img
-      src={src}
-      alt={alt}
-      loading="lazy"
-      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-    />
+    <button
+      type="button"
+      onClick={() => onOpen(photo)}
+      aria-label={`View full image: ${photo.alt}`}
+      className="block h-full w-full"
+    >
+      <img
+        src={photo.thumb}
+        alt={photo.alt}
+        loading="lazy"
+        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+    </button>
     <a
-      href={src}
-      download={downloadName}
-      aria-label={`Download ${alt}`}
+      href={photo.full}
+      download={photo.downloadName}
+      aria-label={`Download ${photo.alt}`}
       className="absolute right-2 top-2 flex h-9 w-9 items-center justify-center rounded-full bg-background/70 text-foreground opacity-0 backdrop-blur transition-opacity hover:text-primary focus-visible:opacity-100 group-hover:opacity-100"
     >
       <Download size={16} />
@@ -71,36 +102,84 @@ const GalleryPhoto = ({ src, alt, downloadName }: Photo) => (
 );
 
 const GroupHeading = ({ children }: { children: string }) => (
-  <h3 className="mt-14 text-xs font-bold uppercase tracking-[0.35em] text-muted-foreground first:mt-12">
+  <h3 className="mt-10 text-xs font-bold uppercase tracking-[0.35em] text-muted-foreground first:mt-8">
     {children}
   </h3>
 );
 
-const GallerySection = () => (
-  <section id="gallery" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-24">
-    <h2 className="section-heading">Gallery</h2>
+const GallerySection = () => {
+  const [lightbox, setLightbox] = useState<Photo | null>(null);
 
-    <GroupHeading>Videos</GroupHeading>
-    <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
-      {videos.map((video) => (
-        <VideoTile key={video.src} {...video} />
-      ))}
-    </div>
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setLightbox(null);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [lightbox]);
 
-    <GroupHeading>Live</GroupHeading>
-    <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
-      {livePhotos.map((photo) => (
-        <GalleryPhoto key={photo.src} {...photo} />
-      ))}
-    </div>
+  return (
+    <section id="gallery" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-16">
+      <h2 className="section-heading">Gallery</h2>
 
-    <GroupHeading>Press</GroupHeading>
-    <div className="mt-4 grid grid-cols-2 gap-3">
-      {pressPhotos.map((photo) => (
-        <GalleryPhoto key={photo.src} {...photo} />
-      ))}
-    </div>
-  </section>
-);
+      <GroupHeading>Videos</GroupHeading>
+      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        {videos.map((video) => (
+          <VideoTile key={video.src} {...video} />
+        ))}
+      </div>
+
+      <GroupHeading>Live</GroupHeading>
+      <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
+        {livePhotos.map((photo) => (
+          <GalleryPhoto key={photo.thumb} photo={photo} onOpen={setLightbox} />
+        ))}
+      </div>
+
+      <GroupHeading>Press</GroupHeading>
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        {pressPhotos.map((photo) => (
+          <GalleryPhoto key={photo.thumb} photo={photo} onOpen={setLightbox} />
+        ))}
+      </div>
+
+      {lightbox && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightbox.alt}
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-background/90 p-4 backdrop-blur-sm"
+          onClick={() => setLightbox(null)}
+        >
+          <img
+            src={lightbox.full}
+            alt={lightbox.alt}
+            className="max-h-full max-w-full rounded-lg object-contain"
+            onClick={(event) => event.stopPropagation()}
+          />
+          <button
+            type="button"
+            aria-label="Close full image"
+            onClick={() => setLightbox(null)}
+            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-background/70 text-foreground backdrop-blur transition-colors hover:text-primary"
+          >
+            <X size={18} />
+          </button>
+          <a
+            href={lightbox.full}
+            download={lightbox.downloadName}
+            aria-label={`Download ${lightbox.alt}`}
+            onClick={(event) => event.stopPropagation()}
+            className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-background/70 px-4 py-2 text-sm text-foreground backdrop-blur transition-colors hover:text-primary"
+          >
+            <Download size={16} />
+            Download full size
+          </a>
+        </div>
+      )}
+    </section>
+  );
+};
 
 export default GallerySection;

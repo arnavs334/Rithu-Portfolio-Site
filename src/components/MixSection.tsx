@@ -19,9 +19,9 @@ const MixSection = () => {
   }, [loaded]);
 
   return (
-    <section id="mix" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-24">
+    <section id="mix" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-16">
       <h2 className="section-heading">Mix</h2>
-      <div className="mt-12">
+      <div className="mt-8">
         {failed ? (
           <a
             href={MIX_URL}

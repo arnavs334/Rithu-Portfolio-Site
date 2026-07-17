@@ -68,5 +68,19 @@ for n in 1 2 3; do
     "$OUT/district-poster-$n.jpg"
 done
 
+# --- Full-resolution originals for the gallery download buttons ---
+# Copied verbatim (no recompression) into public/ so the site can serve
+# them at /downloads/. Names must match src/components/GallerySection.tsx.
+DL="$(cd "$(dirname "$0")/.." && pwd)/public/downloads"
+mkdir -p "$DL"
+cp "$SRC/RITHU_kirt_photo2.png" "$DL/rithu-press-01.png"
+cp "$SRC/RITHU_kirt_photo1.png" "$DL/rithu-press-02.png"
+i=1
+for f in "${photos[@]}"; do
+  cp "$SRC/$f" "$DL/$(printf 'rithu-live-%02d.jpg' "$i")"
+  i=$((i + 1))
+done
+
 echo "Done. Output sizes:"
 du -sh "$OUT"/*
+du -sh "$DL"

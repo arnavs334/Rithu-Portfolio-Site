@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import GallerySection from "@/components/GallerySection";
 import VideoTile from "@/components/VideoTile";
 
@@ -26,14 +26,27 @@ describe("GallerySection", () => {
     }
   });
 
-  it("offers a download link for every photo and video", () => {
+  it("offers a full-resolution download link for every photo and video", () => {
     render(<GallerySection />);
     const downloads = screen.getAllByRole("link", { name: /^download /i });
     // 14 photos + 3 videos
     expect(downloads.length).toBe(17);
     for (const link of downloads) {
-      expect(link.getAttribute("download")).toMatch(/^rithu-.+\.(webp|mp4)$/);
+      expect(link.getAttribute("download")).toMatch(/^rithu-.+\.(jpg|png|mp4)$/);
     }
+  });
+
+  it("opens the uncropped original in a lightbox on click", () => {
+    render(<GallerySection />);
+    fireEvent.click(
+      screen.getAllByRole("button", { name: /^view full image/i })[0]
+    );
+    const dialog = screen.getByRole("dialog");
+    const img = within(dialog).getByRole("img");
+    expect(img.getAttribute("src")).toBe("/downloads/rithu-live-01.jpg");
+
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(screen.queryByRole("dialog")).toBeNull();
   });
 });
 

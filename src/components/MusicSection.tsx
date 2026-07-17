@@ -18,10 +18,10 @@ const soundcloudEmbedSrc = (url: string) =>
   )}&color=%238b8bff&auto_play=false&hide_related=true&show_comments=false&show_teaser=false`;
 
 const MusicSection = () => (
-  <section id="music" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-24">
+  <section id="music" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-16">
     <h2 className="section-heading">Music</h2>
 
-    <p className="mt-12 text-xs font-bold uppercase tracking-[0.35em] text-muted-foreground">
+    <p className="mt-8 text-xs font-bold uppercase tracking-[0.35em] text-muted-foreground">
       New single
     </p>
     <iframe
@@ -43,7 +43,7 @@ const MusicSection = () => (
       Open on Spotify →
     </a>
 
-    <p className="mt-12 text-xs font-bold uppercase tracking-[0.35em] text-muted-foreground">
+    <p className="mt-10 text-xs font-bold uppercase tracking-[0.35em] text-muted-foreground">
       On SoundCloud
     </p>
     <div className="mt-4 grid gap-4 md:grid-cols-2">

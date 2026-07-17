@@ -6,9 +6,9 @@ const stats = [
 ];
 
 const AboutSection = () => (
-  <section id="about" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-24">
+  <section id="about" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-16">
     <h2 className="section-heading">About</h2>
-    <div className="mt-12 grid items-center gap-10 md:grid-cols-2">
+    <div className="mt-8 grid items-center gap-10 md:grid-cols-2">
       <img
         src={aboutImage}
         alt="Rithu studio portrait"
