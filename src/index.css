@@ -60,17 +60,34 @@
     @apply flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card/60 text-foreground transition-all hover:scale-110 hover:border-primary hover:text-primary;
   }
 
-  /* Full-height hero that stays clear of iOS Safari's bottom toolbar.
-     100vh includes the area behind the toolbar; 100dvh tracks the actual
-     visible viewport — full coverage on load, and the bottom-anchored
-     content always sits above the toolbar. */
+  /* Mobile-Safari-aware hero. The section spans the full physical screen
+     (100lvh) so the photo — not the next section — sits behind the
+     translucent bottom toolbar; the content and scroll cue are lifted by
+     the toolbar's height (100lvh - 100svh) so they stay visible above it.
+     On desktop lvh == svh and these collapse to plain paddings. */
   .hero-viewport {
     min-height: 100vh;
   }
 
-  @supports (min-height: 100dvh) {
+  .hero-pad {
+    padding-bottom: 5rem;
+  }
+
+  .hero-cue {
+    bottom: 2rem;
+  }
+
+  @supports (height: 100lvh) {
     .hero-viewport {
-      min-height: 100dvh;
+      min-height: 100lvh;
+    }
+
+    .hero-pad {
+      padding-bottom: calc(100lvh - 100svh + 5rem);
+    }
+
+    .hero-cue {
+      bottom: calc(100lvh - 100svh + 2rem);
     }
   }
 

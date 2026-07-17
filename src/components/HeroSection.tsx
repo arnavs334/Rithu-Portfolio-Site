@@ -20,7 +20,7 @@ const HeroSection = () => {
     />
     <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/10 to-background" />
     <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/10 to-transparent" />
-    <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-24 sm:px-8 sm:pb-28">
+    <div className="hero-pad relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-8">
       <motion.div
         initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -70,7 +70,7 @@ const HeroSection = () => {
     <a
       href="#about"
       aria-label="Scroll to about section"
-      className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 animate-bounce text-primary"
+      className="hero-cue absolute left-1/2 z-10 -translate-x-1/2 animate-bounce text-primary"
     >
       <svg
         width="28"
