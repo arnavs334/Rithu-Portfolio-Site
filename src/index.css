@@ -290,24 +290,14 @@
   }
 }
 
-/* Reduce Motion: keep the glitch identity but freeze it — a static
-   RGB-split tear instead of the animated burst. */
+/* Reduce Motion: no animation, plain wordmark. */
 @media (prefers-reduced-motion: reduce) {
-  .glitch,
-  .glitch::before,
-  .glitch::after {
+  .glitch {
     animation: none;
   }
 
-  .glitch::before {
-    opacity: 1;
-    transform: translate(-0.04em, 0.01em);
-    clip-path: inset(32% 0 44% 0);
-  }
-
+  .glitch::before,
   .glitch::after {
-    opacity: 1;
-    transform: translate(0.04em, -0.01em);
-    clip-path: inset(62% 0 18% 0);
+    display: none;
   }
 }
