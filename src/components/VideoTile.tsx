@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type VideoTileProps = {
   src: string;
@@ -6,8 +6,38 @@ type VideoTileProps = {
   label: string;
 };
 
+const safePlay = (video: HTMLVideoElement) => {
+  // video.play() returns a Promise in browsers, but jsdom (tests) returns undefined.
+  video.play()?.catch(() => {});
+};
+
 const VideoTile = ({ src, poster, label }: VideoTileProps) => {
   const [muted, setMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      safePlay(video);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          safePlay(video);
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.25, rootMargin: "200px" }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <button
@@ -17,10 +47,10 @@ const VideoTile = ({ src, poster, label }: VideoTileProps) => {
       className="group relative block w-full overflow-hidden rounded-xl border border-border"
     >
       <video
+        ref={videoRef}
         src={src}
         poster={poster}
         muted={muted}
-        autoPlay
         loop
         playsInline
         preload="metadata"
