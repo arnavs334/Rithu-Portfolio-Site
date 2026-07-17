@@ -191,7 +191,8 @@
 /* base copy: brief RGB-fringed shudder during the burst window (82–96%) */
 @keyframes glitch-base {
   0%,
-  96% {
+  96%,
+  100% {
     transform: none;
     text-shadow: none;
   }
@@ -220,7 +221,8 @@
 /* magenta copy: thin horizontal slices ripped left/right */
 @keyframes glitch-slice-a {
   0%,
-  96% {
+  96%,
+  100% {
     opacity: 0;
     transform: none;
     clip-path: inset(0 0 100% 0);
@@ -228,34 +230,35 @@
   82% {
     opacity: 1;
     transform: translate(-0.14em, -0.03em);
-    clip-path: inset(12% -0.1em 76% 0);
+    clip-path: inset(12% 0 76% 0);
   }
   85% {
     opacity: 1;
     transform: translate(0.1em, 0.02em);
-    clip-path: inset(46% -0.1em 40% 0);
+    clip-path: inset(46% 0 40% 0);
   }
   88% {
     opacity: 1;
     transform: translate(-0.08em, 0);
-    clip-path: inset(72% -0.1em 14% 0);
+    clip-path: inset(72% 0 14% 0);
   }
   91% {
     opacity: 1;
     transform: translate(0.16em, 0.04em);
-    clip-path: inset(24% -0.1em 62% 0);
+    clip-path: inset(24% 0 62% 0);
   }
   94% {
     opacity: 1;
     transform: translate(-0.1em, -0.02em);
-    clip-path: inset(58% -0.1em 28% 0);
+    clip-path: inset(58% 0 28% 0);
   }
 }
 
 /* cyan copy: counter-phase slices, opposite drift */
 @keyframes glitch-slice-b {
   0%,
-  96% {
+  96%,
+  100% {
     opacity: 0;
     transform: none;
     clip-path: inset(0 0 100% 0);
@@ -263,36 +266,48 @@
   83% {
     opacity: 1;
     transform: translate(0.12em, 0.03em);
-    clip-path: inset(64% -0.1em 22% 0);
+    clip-path: inset(64% 0 22% 0);
   }
   86% {
     opacity: 1;
     transform: translate(-0.14em, -0.02em);
-    clip-path: inset(8% -0.1em 82% 0);
+    clip-path: inset(8% 0 82% 0);
   }
   89% {
     opacity: 1;
     transform: translate(0.08em, 0);
-    clip-path: inset(38% -0.1em 50% 0);
+    clip-path: inset(38% 0 50% 0);
   }
   92% {
     opacity: 1;
     transform: translate(-0.16em, 0.02em);
-    clip-path: inset(80% -0.1em 6% 0);
+    clip-path: inset(80% 0 6% 0);
   }
   95% {
     opacity: 1;
     transform: translate(0.06em, -0.03em);
-    clip-path: inset(30% -0.1em 58% 0);
+    clip-path: inset(30% 0 58% 0);
   }
 }
 
+/* Reduce Motion: keep the glitch identity but freeze it — a static
+   RGB-split tear instead of the animated burst. */
 @media (prefers-reduced-motion: reduce) {
-  .glitch {
-    animation: none;
-  }
+  .glitch,
   .glitch::before,
   .glitch::after {
-    display: none;
+    animation: none;
+  }
+
+  .glitch::before {
+    opacity: 1;
+    transform: translate(-0.04em, 0.01em);
+    clip-path: inset(32% 0 44% 0);
+  }
+
+  .glitch::after {
+    opacity: 1;
+    transform: translate(0.04em, -0.01em);
+    clip-path: inset(62% 0 18% 0);
   }
 }
