@@ -4,6 +4,8 @@ type VideoTileProps = {
   src: string;
   poster: string;
   label: string;
+  width: number;
+  height: number;
 };
 
 const safePlay = (video: HTMLVideoElement) => {
@@ -11,7 +13,7 @@ const safePlay = (video: HTMLVideoElement) => {
   video.play()?.catch(() => {});
 };
 
-const VideoTile = ({ src, poster, label }: VideoTileProps) => {
+const VideoTile = ({ src, poster, label, width, height }: VideoTileProps) => {
   const [muted, setMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -54,6 +56,8 @@ const VideoTile = ({ src, poster, label }: VideoTileProps) => {
         loop
         playsInline
         preload="metadata"
+        width={width}
+        height={height}
         className="w-full"
       />
       <span className="absolute bottom-2 right-2 rounded-full bg-background/70 px-2.5 py-1 text-xs text-foreground opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">

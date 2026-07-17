@@ -10,6 +10,7 @@ const HeroSection = () => (
       src={heroImage}
       alt="Rithu press shot"
       className="absolute inset-0 h-full w-full object-cover object-top"
+      {...({ fetchpriority: "high" } as Record<string, string>)}
     />
     <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background" />
     <div className="relative z-10 flex flex-col items-center gap-6 px-4 text-center">

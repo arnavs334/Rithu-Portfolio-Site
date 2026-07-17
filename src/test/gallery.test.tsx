@@ -19,7 +19,9 @@ describe("GallerySection", () => {
 
 describe("VideoTile", () => {
   it("toggles mute on click", () => {
-    const { container } = render(<VideoTile src="loop.mp4" poster="poster.jpg" label="District set" />);
+    const { container } = render(
+      <VideoTile src="loop.mp4" poster="poster.jpg" label="District set" width={720} height={1280} />
+    );
     const video = container.querySelector("video");
     const button = screen.getByRole("button", { name: /unmute district set/i });
 

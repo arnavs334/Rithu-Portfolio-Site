@@ -13,6 +13,8 @@ const AboutSection = () => (
         src={aboutImage}
         alt="Rithu studio portrait"
         loading="lazy"
+        width={1400}
+        height={1813}
         className="w-full rounded-xl border border-border"
       />
       <div>
