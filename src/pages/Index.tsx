@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import MusicSection from "@/components/MusicSection";
+import GallerySection from "@/components/GallerySection";
 
 const Index = () => {
   return (
@@ -11,7 +12,7 @@ const Index = () => {
       <HeroSection />
       <AboutSection />
       <MusicSection />
-      {/* GallerySection (Task 7) */}
+      <GallerySection />
       <Footer />
     </div>
   );
