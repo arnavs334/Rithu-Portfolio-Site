@@ -73,10 +73,6 @@
     padding-bottom: 5rem;
   }
 
-  .hero-cue {
-    bottom: 2rem;
-  }
-
   @supports (height: 100lvh) {
     .hero-viewport {
       min-height: 100lvh;
@@ -84,10 +80,6 @@
 
     .hero-pad {
       padding-bottom: calc(100lvh - 100svh + 5rem);
-    }
-
-    .hero-cue {
-      bottom: calc(100lvh - 100svh + 2rem);
     }
   }
 
