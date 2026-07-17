@@ -6,9 +6,16 @@ type VideoTileProps = {
   poster: string;
   label: string;
   downloadName: string;
+  className?: string;
 };
 
-const VideoTile = ({ src, poster, label, downloadName }: VideoTileProps) => {
+const VideoTile = ({
+  src,
+  poster,
+  label,
+  downloadName,
+  className = "",
+}: VideoTileProps) => {
   const [muted, setMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -64,7 +71,9 @@ const VideoTile = ({ src, poster, label, downloadName }: VideoTileProps) => {
   };
 
   return (
-    <div className="group relative aspect-square overflow-hidden rounded-xl border border-border">
+    <div
+      className={`group relative aspect-square overflow-hidden rounded-xl border border-border ${className}`}
+    >
       <video
         ref={videoRef}
         src={src}

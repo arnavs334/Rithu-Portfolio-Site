@@ -187,9 +187,15 @@ const GallerySection = () => {
 
       <Reveal delay={0.2}>
         <GroupHeading>Videos</GroupHeading>
-        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        {/* mobile: compact horizontal strip like the Live photos;
+           sm+: three-across grid */}
+        <div className="strip-scroll mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto sm:grid sm:grid-cols-3 sm:overflow-visible">
           {videos.map((video) => (
-            <VideoTile key={video.src} {...video} />
+            <VideoTile
+              key={video.src}
+              {...video}
+              className="h-52 shrink-0 snap-start sm:h-auto sm:w-full"
+            />
           ))}
         </div>
       </Reveal>
