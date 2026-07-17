@@ -142,15 +142,6 @@ const GallerySection = () => {
       </Reveal>
 
       <Reveal delay={0.1}>
-        <GroupHeading>Videos</GroupHeading>
-        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
-          {videos.map((video) => (
-            <VideoTile key={video.src} {...video} />
-          ))}
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.15}>
         <GroupHeading>Live</GroupHeading>
         <div className="relative mt-4">
           <button
@@ -185,11 +176,20 @@ const GallerySection = () => {
         </div>
       </Reveal>
 
-      <Reveal delay={0.2}>
+      <Reveal delay={0.15}>
         <GroupHeading>Press</GroupHeading>
         <div className="mt-4 grid grid-cols-2 gap-3">
           {pressPhotos.map((photo) => (
             <GalleryPhoto key={photo.thumb} photo={photo} onOpen={setLightbox} />
+          ))}
+        </div>
+      </Reveal>
+
+      <Reveal delay={0.2}>
+        <GroupHeading>Videos</GroupHeading>
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          {videos.map((video) => (
+            <VideoTile key={video.src} {...video} />
           ))}
         </div>
       </Reveal>
