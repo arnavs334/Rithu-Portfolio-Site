@@ -67,21 +67,18 @@ const AboutSection = () => {
               likes in the past year alone—Rithu is rapidly cementing her status
               as a defining new voice in the electronic landscape.
             </p>
-            <div className="mt-10 grid grid-cols-3 divide-x divide-border overflow-hidden rounded-xl border border-border bg-card/40">
+            <div className="mt-8 flex flex-wrap items-baseline gap-x-8 gap-y-3">
               {stats.map((stat) => (
-                <div key={stat.label} className="px-3 py-5 text-center sm:py-6">
-                  <div className="font-display text-xl font-extrabold text-primary sm:text-3xl md:text-4xl">
+                <div key={stat.label} className="flex items-baseline gap-2">
+                  <span className="font-display text-2xl font-extrabold text-primary sm:text-3xl">
                     {stat.value}
-                  </div>
-                  <div className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:text-xs">
+                  </span>
+                  <span className="text-xs uppercase tracking-wider text-muted-foreground sm:text-sm">
                     {stat.label}
-                  </div>
+                  </span>
                 </div>
               ))}
             </div>
-            <p className="mt-3 text-xs uppercase tracking-wider text-muted-foreground/70">
-              On TikTok, in the past year
-            </p>
           </motion.div>
         </div>
       </div>
