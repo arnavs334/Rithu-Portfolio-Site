@@ -8,7 +8,7 @@ const HeroSection = () => {
   return (
   <section
     id="home"
-    className="relative flex min-h-screen items-end overflow-hidden"
+    className="hero-viewport relative flex items-end overflow-hidden"
   >
     {/* image is oversized and pinned right so she sits clear of the
        bottom-left text block */}

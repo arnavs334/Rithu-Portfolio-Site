@@ -60,6 +60,18 @@
     @apply flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card/60 text-foreground transition-all hover:scale-110 hover:border-primary hover:text-primary;
   }
 
+  /* Full-height hero that stays clear of iOS Safari's bottom toolbar:
+     100vh includes the area behind the toolbar, 100svh does not. */
+  .hero-viewport {
+    min-height: 100vh;
+  }
+
+  @supports (min-height: 100svh) {
+    .hero-viewport {
+      min-height: 100svh;
+    }
+  }
+
   /* horizontal film strip: scrolls without showing a scrollbar */
   .strip-scroll {
     scrollbar-width: none;
