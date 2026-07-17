@@ -19,11 +19,21 @@ describe("GallerySection", () => {
 
 describe("VideoTile", () => {
   it("toggles mute on click", () => {
-    render(<VideoTile src="loop.mp4" poster="poster.jpg" label="District set" />);
+    const { container } = render(<VideoTile src="loop.mp4" poster="poster.jpg" label="District set" />);
+    const video = container.querySelector("video");
     const button = screen.getByRole("button", { name: /unmute district set/i });
+
+    // Assert initial state: video should be muted
+    expect(video?.muted).toBe(true);
+
     fireEvent.click(button);
+
+    // Assert aria-label changes
     expect(
       screen.getByRole("button", { name: /mute district set/i })
     ).toBeInTheDocument();
+
+    // Assert video muted state changes
+    expect(video?.muted).toBe(false);
   });
 });
