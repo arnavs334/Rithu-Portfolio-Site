@@ -4,16 +4,19 @@ import heroImage from "@/assets/press-hero.webp";
 const HeroSection = () => (
   <section
     id="home"
-    className="relative flex min-h-screen items-center justify-center overflow-hidden"
+    className="relative flex min-h-screen items-center overflow-hidden"
   >
+    {/* keep her face right of center so the left column stays clear for text */}
     <img
       src={heroImage}
       alt="Rithu press shot"
-      className="absolute inset-0 h-full w-full object-cover object-top"
+      className="absolute inset-0 h-full w-full object-cover object-[70%_20%]"
       {...({ fetchpriority: "high" } as Record<string, string>)}
     />
-    <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background" />
-    <div className="relative z-10 flex flex-col items-center gap-6 px-4 text-center">
+    <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/20 to-background" />
+    <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/20 to-transparent" />
+    <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-8">
+      <div className="flex max-w-xl flex-col items-start gap-6 text-left">
       <h1
         data-text="RITHU"
         className="glitch font-display text-6xl font-black tracking-tight sm:text-8xl md:text-9xl"
@@ -43,11 +46,12 @@ const HeroSection = () => (
           <SiSoundcloud size={22} />
         </a>
       </div>
+      </div>
     </div>
     <a
       href="#about"
       aria-label="Scroll to about section"
-      className="absolute bottom-8 z-10 animate-bounce text-primary"
+      className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 animate-bounce text-primary"
     >
       <svg
         width="28"
