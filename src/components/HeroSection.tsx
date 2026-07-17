@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { SiTiktok, SiSoundcloud } from "@icons-pack/react-simple-icons";
+import { SiTiktok, SiSoundcloud, SiInstagram } from "@icons-pack/react-simple-icons";
 import heroImage from "@/assets/press-hero.webp";
 
 const HeroSection = () => {
@@ -45,6 +45,15 @@ const HeroSection = () => {
           className="icon-link"
         >
           <SiTiktok size={22} />
+        </a>
+        <a
+          href="https://www.instagram.com/sparkleunicorn999/"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Instagram"
+          className="icon-link"
+        >
+          <SiInstagram size={22} />
         </a>
         <a
           href="https://soundcloud.com/sparkleunicorn999"

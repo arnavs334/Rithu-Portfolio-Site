@@ -1,4 +1,4 @@
-import { SiTiktok, SiSoundcloud } from "@icons-pack/react-simple-icons";
+import { SiTiktok, SiSoundcloud, SiInstagram } from "@icons-pack/react-simple-icons";
 
 const Footer = () => (
   <footer id="contact" className="border-t border-border px-4 py-14 text-center">
@@ -20,6 +20,15 @@ const Footer = () => (
         className="icon-link"
       >
         <SiTiktok size={20} />
+      </a>
+      <a
+        href="https://www.instagram.com/sparkleunicorn999/"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Instagram"
+        className="icon-link"
+      >
+        <SiInstagram size={20} />
       </a>
       <a
         href="https://soundcloud.com/sparkleunicorn999"

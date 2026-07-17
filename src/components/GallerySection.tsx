@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Download, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight, Download, X } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import VideoTile from "@/components/VideoTile";
 import g01 from "@/assets/gallery-01.webp";
@@ -73,11 +73,15 @@ const pressPhotos: Photo[] = [
 const GalleryPhoto = ({
   photo,
   onOpen,
+  className = "aspect-[4/5]",
 }: {
   photo: Photo;
   onOpen: (photo: Photo) => void;
+  className?: string;
 }) => (
-  <div className="group relative aspect-[4/5] overflow-hidden rounded-xl border border-border">
+  <div
+    className={`group relative overflow-hidden rounded-xl border border-border ${className}`}
+  >
     <button
       type="button"
       onClick={() => onOpen(photo)}
@@ -110,6 +114,16 @@ const GroupHeading = ({ children }: { children: string }) => (
 
 const GallerySection = () => {
   const [lightbox, setLightbox] = useState<Photo | null>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
+
+  const scrollStrip = (direction: 1 | -1) => {
+    const strip = stripRef.current;
+    if (!strip) return;
+    strip.scrollBy({
+      left: direction * strip.clientWidth * 0.75,
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
     if (!lightbox) return;
@@ -138,10 +152,36 @@ const GallerySection = () => {
 
       <Reveal delay={0.15}>
         <GroupHeading>Live</GroupHeading>
-        <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
-          {livePhotos.map((photo) => (
-            <GalleryPhoto key={photo.thumb} photo={photo} onOpen={setLightbox} />
-          ))}
+        <div className="relative mt-4">
+          <button
+            type="button"
+            onClick={() => scrollStrip(-1)}
+            aria-label="Scroll live photos left"
+            className="absolute -left-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/90 text-foreground shadow-lg transition-colors hover:border-primary/50 md:flex"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <div
+            ref={stripRef}
+            className="strip-scroll flex snap-x snap-mandatory gap-3 overflow-x-auto"
+          >
+            {livePhotos.map((photo) => (
+              <GalleryPhoto
+                key={photo.thumb}
+                photo={photo}
+                onOpen={setLightbox}
+                className="h-56 shrink-0 snap-start aspect-[4/5] md:h-72"
+              />
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => scrollStrip(1)}
+            aria-label="Scroll live photos right"
+            className="absolute -right-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/90 text-foreground shadow-lg transition-colors hover:border-primary/50 md:flex"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
         </div>
       </Reveal>
 

@@ -22,6 +22,7 @@ describe("Footer", () => {
     const hrefs = links.map((a) => a.getAttribute("href"));
     expect(hrefs).toContain("mailto:rithumusic999@gmail.com");
     expect(hrefs).toContain("https://www.tiktok.com/@rithu.h");
+    expect(hrefs).toContain("https://www.instagram.com/sparkleunicorn999/");
     expect(hrefs).toContain("https://soundcloud.com/sparkleunicorn999");
   });
 });
