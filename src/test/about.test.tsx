@@ -11,6 +11,6 @@ describe("AboutSection", () => {
     expect(screen.getByText("60M+")).toBeInTheDocument();
     expect(screen.getByText("15M+")).toBeInTheDocument();
     expect(screen.getByText("130K+")).toBeInTheDocument();
-    expect(screen.getByText("TikTok followers")).toBeInTheDocument();
+    expect(screen.getByText("Followers")).toBeInTheDocument();
   });
 });
