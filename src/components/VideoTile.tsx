@@ -8,11 +8,6 @@ type VideoTileProps = {
   height: number;
 };
 
-const safePlay = (video: HTMLVideoElement) => {
-  // video.play() returns a Promise in browsers, but jsdom (tests) returns undefined.
-  video.play()?.catch(() => {});
-};
-
 const VideoTile = ({ src, poster, label, width, height }: VideoTileProps) => {
   const [muted, setMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -22,14 +17,14 @@ const VideoTile = ({ src, poster, label, width, height }: VideoTileProps) => {
     if (!video) return;
 
     if (typeof IntersectionObserver === "undefined") {
-      safePlay(video);
+      video.play().catch(() => {});
       return;
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          safePlay(video);
+          video.play().catch(() => {});
         } else {
           video.pause();
         }
