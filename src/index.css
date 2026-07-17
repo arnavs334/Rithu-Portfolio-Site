@@ -59,30 +59,48 @@
      different hue in the blue-violet family, fading back to the base
      background at both edges so sections blend into each other. */
   .bg-wash-violet {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--background)) 0%,
-      hsl(252 22% 8%) 50%,
-      hsl(var(--background)) 100%
-    );
+    background:
+      radial-gradient(
+        ellipse 80% 60% at 20% 40%,
+        hsl(252 45% 22% / 0.55),
+        transparent 70%
+      ),
+      linear-gradient(
+        180deg,
+        hsl(var(--background)) 0%,
+        hsl(252 35% 13%) 50%,
+        hsl(var(--background)) 100%
+      );
   }
 
   .bg-wash-magenta {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--background)) 0%,
-      hsl(290 20% 8%) 50%,
-      hsl(var(--background)) 100%
-    );
+    background:
+      radial-gradient(
+        ellipse 80% 60% at 80% 40%,
+        hsl(300 45% 20% / 0.55),
+        transparent 70%
+      ),
+      linear-gradient(
+        180deg,
+        hsl(var(--background)) 0%,
+        hsl(292 35% 13%) 50%,
+        hsl(var(--background)) 100%
+      );
   }
 
   .bg-wash-blue {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--background)) 0%,
-      hsl(228 24% 8%) 50%,
-      hsl(var(--background)) 100%
-    );
+    background:
+      radial-gradient(
+        ellipse 80% 60% at 25% 30%,
+        hsl(220 55% 22% / 0.55),
+        transparent 70%
+      ),
+      linear-gradient(
+        180deg,
+        hsl(var(--background)) 0%,
+        hsl(226 40% 13%) 50%,
+        hsl(var(--background)) 100%
+      );
   }
 }
 
