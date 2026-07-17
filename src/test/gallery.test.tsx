@@ -7,13 +7,23 @@ describe("GallerySection", () => {
   it("renders lazy-loaded photos and video tiles", () => {
     render(<GallerySection />);
     const images = screen.getAllByRole("img");
-    expect(images.length).toBe(12);
+    // 12 live photos + 2 press shots
+    expect(images.length).toBe(14);
     for (const img of images) {
       expect(img).toHaveAttribute("loading", "lazy");
     }
     expect(
       screen.getAllByRole("button", { name: /unmute/i }).length
     ).toBe(3);
+  });
+
+  it("groups media under Videos, Live, and Press headings", () => {
+    render(<GallerySection />);
+    for (const group of ["Videos", "Live", "Press"]) {
+      expect(
+        screen.getByRole("heading", { level: 3, name: group })
+      ).toBeInTheDocument();
+    }
   });
 });
 

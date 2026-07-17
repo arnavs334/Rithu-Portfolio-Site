@@ -31,7 +31,7 @@ const AboutSection = () => (
         <div className="mt-10 grid grid-cols-2 gap-6">
           {stats.map((stat) => (
             <div key={stat.label}>
-              <div className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text font-display text-4xl font-extrabold text-transparent sm:text-5xl">
+              <div className="font-display text-4xl font-extrabold text-primary sm:text-5xl">
                 {stat.value}
               </div>
               <div className="mt-2 text-xs uppercase tracking-wider text-muted-foreground sm:text-sm">

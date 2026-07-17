@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 describe("Navigation", () => {
   it("links to each section anchor", () => {
     render(<Navigation />);
-    for (const href of ["#about", "#music", "#gallery", "#contact"]) {
+    for (const href of ["#about", "#mix", "#gallery", "#contact"]) {
       const link = screen
         .getAllByRole("link")
         .find((a) => a.getAttribute("href") === href);

@@ -6,7 +6,7 @@ const EMBED_SRC = `https://w.soundcloud.com/player/?url=${encodeURIComponent(
   MIX_URL
 )}&color=%238b8bff&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true`;
 
-const MusicSection = () => {
+const MixSection = () => {
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
 
@@ -19,8 +19,8 @@ const MusicSection = () => {
   }, [loaded]);
 
   return (
-    <section id="music" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-24">
-      <h2 className="section-heading">Music</h2>
+    <section id="mix" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-24">
+      <h2 className="section-heading">Mix</h2>
       <div className="mt-12">
         {failed ? (
           <a
@@ -56,4 +56,4 @@ const MusicSection = () => {
   );
 };
 
-export default MusicSection;
+export default MixSection;

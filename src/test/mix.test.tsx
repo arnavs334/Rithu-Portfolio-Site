@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import MusicSection from "@/components/MusicSection";
+import MixSection from "@/components/MixSection";
 
-describe("MusicSection", () => {
+describe("MixSection", () => {
   it("renders the SoundCloud embed for the mix", () => {
-    render(<MusicSection />);
+    render(<MixSection />);
     const iframe = screen.getByTitle("Hyperpopish Mix on SoundCloud");
     expect(iframe.getAttribute("src")).toContain(
       encodeURIComponent("https://soundcloud.com/sparkleunicorn999/hyperpopish-mix")
@@ -12,7 +12,7 @@ describe("MusicSection", () => {
   });
 
   it("always offers a direct SoundCloud profile link", () => {
-    render(<MusicSection />);
+    render(<MixSection />);
     const hrefs = screen.getAllByRole("link").map((a) => a.getAttribute("href"));
     expect(hrefs).toContain("https://soundcloud.com/sparkleunicorn999");
   });
@@ -24,7 +24,7 @@ describe("MusicSection", () => {
 
     it("replaces the iframe with the fallback link if it never loads", () => {
       vi.useFakeTimers();
-      render(<MusicSection />);
+      render(<MixSection />);
 
       act(() => {
         vi.advanceTimersByTime(6000);
@@ -42,7 +42,7 @@ describe("MusicSection", () => {
 
     it("keeps the iframe if it loads before the timeout fires", () => {
       vi.useFakeTimers();
-      render(<MusicSection />);
+      render(<MixSection />);
       const iframe = screen.getByTitle("Hyperpopish Mix on SoundCloud");
 
       // Flush the onLoad state update (and the effect that clears the

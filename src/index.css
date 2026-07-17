@@ -10,8 +10,9 @@
     --muted: 240 10% 16%;
     --muted-foreground: 240 10% 65%;
     --primary: 235 65% 72%; /* periwinkle from press shots */
-    --secondary: 270 70% 65%; /* violet */
-    --accent: 350 100% 62%; /* club neon red */
+    --secondary: 270 60% 68%; /* violet */
+    --accent: 320 85% 66%; /* hyperpop magenta */
+    --glitch-cold: 190 95% 65%; /* icy cyan, glitch RGB-split only */
     --border: 240 10% 18%;
   }
 
@@ -46,12 +47,7 @@
     margin-top: 0.75rem;
     height: 4px;
     width: 4rem;
-    background: linear-gradient(
-      90deg,
-      hsl(var(--primary)),
-      hsl(var(--secondary)),
-      hsl(var(--accent))
-    );
+    background: hsl(var(--primary));
   }
 
   .icon-link {
@@ -59,11 +55,13 @@
   }
 }
 
-/* RGB-split glitch for display headings. Usage:
-   <h1 className="glitch" data-text="RITHU">RITHU</h1> */
+/* Burst glitch for display headings: the text sits clean most of the cycle,
+   then tears for ~450ms — displaced color-split slices over a jittering base.
+   Usage: <h1 className="glitch" data-text="RITHU">RITHU</h1> */
 .glitch {
   position: relative;
   display: inline-block;
+  animation: glitch-base 3.2s infinite steps(1);
 }
 
 .glitch::before,
@@ -71,66 +69,130 @@
   content: attr(data-text);
   position: absolute;
   inset: 0;
+  opacity: 0;
   pointer-events: none;
 }
 
 .glitch::before {
-  color: hsl(var(--accent) / 0.8);
-  animation: glitch-a 2.7s infinite steps(2, jump-none) alternate;
+  color: hsl(var(--accent));
+  animation: glitch-slice-a 3.2s infinite steps(1);
 }
 
 .glitch::after {
-  color: hsl(var(--primary) / 0.8);
-  animation: glitch-b 3.3s infinite steps(2, jump-none) alternate;
+  color: hsl(var(--glitch-cold));
+  animation: glitch-slice-b 3.2s infinite steps(1);
 }
 
-@keyframes glitch-a {
-  0% {
-    transform: translate(0);
-    clip-path: none;
+/* hover: the tear turns frantic */
+.glitch:hover,
+.glitch:hover::before,
+.glitch:hover::after {
+  animation-duration: 0.8s;
+}
+
+/* base copy: brief RGB-fringed shudder during the burst window (82–96%) */
+@keyframes glitch-base {
+  0%,
+  96% {
+    transform: none;
+    text-shadow: none;
   }
-  25% {
-    transform: translate(-3px, 2px);
-    clip-path: inset(15% 0 60% 0);
+  82% {
+    transform: translate(0.02em, 0);
+    text-shadow: -0.05em 0 hsl(var(--accent) / 0.7),
+      0.05em 0 hsl(var(--glitch-cold) / 0.7);
   }
-  50% {
-    transform: translate(2px, -1px);
-    clip-path: inset(55% 0 15% 0);
+  86% {
+    transform: translate(-0.03em, 0.01em) skewX(-3deg);
+    text-shadow: 0.06em 0 hsl(var(--accent) / 0.7),
+      -0.06em 0 hsl(var(--glitch-cold) / 0.7);
   }
-  75% {
-    transform: translate(-2px, 1px);
-    clip-path: inset(30% 0 40% 0);
+  90% {
+    transform: translate(0.02em, -0.01em);
+    text-shadow: -0.03em 0 hsl(var(--accent) / 0.7),
+      0.03em 0 hsl(var(--glitch-cold) / 0.7);
   }
-  100% {
-    transform: translate(3px, -2px);
-    clip-path: none;
+  93% {
+    transform: translate(-0.01em, 0) skewX(2deg);
+    text-shadow: 0.04em 0 hsl(var(--accent) / 0.7),
+      -0.04em 0 hsl(var(--glitch-cold) / 0.7);
   }
 }
 
-@keyframes glitch-b {
-  0% {
-    transform: translate(0);
-    clip-path: none;
+/* magenta copy: thin horizontal slices ripped left/right */
+@keyframes glitch-slice-a {
+  0%,
+  96% {
+    opacity: 0;
+    transform: none;
+    clip-path: inset(0 0 100% 0);
   }
-  25% {
-    transform: translate(3px, -2px);
-    clip-path: inset(60% 0 10% 0);
+  82% {
+    opacity: 1;
+    transform: translate(-0.14em, -0.03em);
+    clip-path: inset(12% -0.1em 76% 0);
   }
-  50% {
-    transform: translate(-2px, 2px);
-    clip-path: inset(10% 0 65% 0);
+  85% {
+    opacity: 1;
+    transform: translate(0.1em, 0.02em);
+    clip-path: inset(46% -0.1em 40% 0);
   }
-  75% {
-    transform: translate(2px, -1px);
-    clip-path: inset(40% 0 30% 0);
+  88% {
+    opacity: 1;
+    transform: translate(-0.08em, 0);
+    clip-path: inset(72% -0.1em 14% 0);
   }
-  100% {
-    transform: translate(-3px, 1px);
-    clip-path: none;
+  91% {
+    opacity: 1;
+    transform: translate(0.16em, 0.04em);
+    clip-path: inset(24% -0.1em 62% 0);
+  }
+  94% {
+    opacity: 1;
+    transform: translate(-0.1em, -0.02em);
+    clip-path: inset(58% -0.1em 28% 0);
+  }
+}
+
+/* cyan copy: counter-phase slices, opposite drift */
+@keyframes glitch-slice-b {
+  0%,
+  96% {
+    opacity: 0;
+    transform: none;
+    clip-path: inset(0 0 100% 0);
+  }
+  83% {
+    opacity: 1;
+    transform: translate(0.12em, 0.03em);
+    clip-path: inset(64% -0.1em 22% 0);
+  }
+  86% {
+    opacity: 1;
+    transform: translate(-0.14em, -0.02em);
+    clip-path: inset(8% -0.1em 82% 0);
+  }
+  89% {
+    opacity: 1;
+    transform: translate(0.08em, 0);
+    clip-path: inset(38% -0.1em 50% 0);
+  }
+  92% {
+    opacity: 1;
+    transform: translate(-0.16em, 0.02em);
+    clip-path: inset(80% -0.1em 6% 0);
+  }
+  95% {
+    opacity: 1;
+    transform: translate(0.06em, -0.03em);
+    clip-path: inset(30% -0.1em 58% 0);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .glitch {
+    animation: none;
+  }
   .glitch::before,
   .glitch::after {
     display: none;

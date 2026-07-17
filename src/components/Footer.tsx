@@ -7,7 +7,7 @@ const Footer = () => (
     </h2>
     <a
       href="mailto:rithumusic999@gmail.com"
-      className="mt-6 inline-block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text font-display text-xl font-bold text-transparent transition-opacity hover:opacity-80 sm:text-3xl"
+      className="mt-6 inline-block font-display text-xl font-bold text-primary transition-opacity hover:opacity-80 sm:text-3xl"
     >
       rithumusic999@gmail.com
     </a>
