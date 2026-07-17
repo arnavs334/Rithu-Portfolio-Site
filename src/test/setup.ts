@@ -13,9 +13,24 @@ Object.defineProperty(HTMLMediaElement.prototype, "pause", {
   value: () => {},
 });
 
-// jsdom doesn't implement IntersectionObserver; Navigation and VideoTile use it.
+// jsdom doesn't implement IntersectionObserver; Navigation, VideoTile, and
+// MixSection use it. The stub reports every observed element as immediately
+// visible, which matches jsdom's "everything renders" model and lets
+// visibility-gated behavior run in tests.
 class IntersectionObserverStub {
-  observe() {}
+  private callback: IntersectionObserverCallback;
+
+  constructor(callback: IntersectionObserverCallback) {
+    this.callback = callback;
+  }
+
+  observe(target: Element) {
+    this.callback(
+      [{ isIntersecting: true, target } as IntersectionObserverEntry],
+      this as unknown as IntersectionObserver
+    );
+  }
+
   unobserve() {}
   disconnect() {}
   takeRecords() {

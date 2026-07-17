@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Reveal from "@/components/Reveal";
 
 const MIX_URL = "https://soundcloud.com/sparkleunicorn999/hyperpopish-mix";
@@ -10,17 +10,42 @@ const EMBED_SRC = `https://w.soundcloud.com/player/?url=${encodeURIComponent(
 const MixSection = () => {
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // The iframe is lazy-loaded, so it only starts fetching once the section
+  // nears the viewport — the fallback timer must not start before then, or
+  // it swaps in the link before the embed ever had a chance to load.
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") {
+      setVisible(true);
+      return;
+    }
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
-    if (loaded) return;
+    if (!visible || loaded) return;
     const timer = setTimeout(() => {
       if (!loaded) setFailed(true);
-    }, 6000);
+    }, 8000);
     return () => clearTimeout(timer);
-  }, [loaded]);
+  }, [visible, loaded]);
 
   return (
-    <section id="mix" className="scroll-mt-16">
+    <section id="mix" ref={sectionRef} className="scroll-mt-16">
       <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
         <Reveal>
           <h2 className="section-heading">Mix</h2>

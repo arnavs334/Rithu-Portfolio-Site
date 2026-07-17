@@ -27,7 +27,7 @@ describe("MixSection", () => {
       render(<MixSection />);
 
       act(() => {
-        vi.advanceTimersByTime(6000);
+        vi.advanceTimersByTime(8000);
       });
 
       expect(screen.queryByTitle("Hyperpopish Mix on SoundCloud")).toBeNull();
@@ -52,7 +52,7 @@ describe("MixSection", () => {
         fireEvent.load(iframe);
       });
       act(() => {
-        vi.advanceTimersByTime(6000);
+        vi.advanceTimersByTime(8000);
       });
 
       expect(screen.getByTitle("Hyperpopish Mix on SoundCloud")).toBeInTheDocument();
