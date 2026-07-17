@@ -58,17 +58,20 @@
   /* Per-section background washes: each section drifts to a slightly
      different hue in the blue-violet family, fading back to the base
      background at both edges so sections blend into each other. */
+  /* All three washes live in the same periwinkle/blue-violet family as the
+     press shots — the hue only drifts a little per section (235 → 248 → 228)
+     so the page reads as one palette, alternating with pure black sections. */
   .bg-wash-violet {
     background:
       radial-gradient(
         ellipse 80% 60% at 20% 40%,
-        hsl(252 45% 22% / 0.55),
+        hsl(235 35% 16% / 0.4),
         transparent 70%
       ),
       linear-gradient(
         180deg,
         hsl(var(--background)) 0%,
-        hsl(252 35% 13%) 50%,
+        hsl(238 30% 10%) 50%,
         hsl(var(--background)) 100%
       );
   }
@@ -77,13 +80,13 @@
     background:
       radial-gradient(
         ellipse 80% 60% at 80% 40%,
-        hsl(300 45% 20% / 0.55),
+        hsl(248 35% 16% / 0.4),
         transparent 70%
       ),
       linear-gradient(
         180deg,
         hsl(var(--background)) 0%,
-        hsl(292 35% 13%) 50%,
+        hsl(250 28% 10%) 50%,
         hsl(var(--background)) 100%
       );
   }
@@ -92,13 +95,13 @@
     background:
       radial-gradient(
         ellipse 80% 60% at 25% 30%,
-        hsl(220 55% 22% / 0.55),
+        hsl(228 40% 16% / 0.4),
         transparent 70%
       ),
       linear-gradient(
         180deg,
         hsl(var(--background)) 0%,
-        hsl(226 40% 13%) 50%,
+        hsl(228 32% 10%) 50%,
         hsl(var(--background)) 100%
       );
   }
