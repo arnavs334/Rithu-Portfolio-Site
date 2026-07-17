@@ -34,7 +34,7 @@ const HeroSection = () => {
         RITHU
       </h1>
       <p className="text-sm uppercase tracking-[0.4em] text-foreground/80 sm:text-base">
-        DJ · Hyperpop · ATL ⇄ LA
+        DJ / Singer
       </p>
       <div className="flex gap-5">
         <a
@@ -67,24 +67,6 @@ const HeroSection = () => {
       </div>
       </motion.div>
     </div>
-    <a
-      href="#about"
-      aria-label="Scroll to about section"
-      className="hero-cue absolute left-1/2 z-10 -translate-x-1/2 animate-bounce text-primary"
-    >
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="m6 9 6 6 6-6" />
-      </svg>
-    </a>
   </section>
   );
 };
