@@ -37,16 +37,19 @@ done
 # segment turns out to be dead air (check with QuickTime first).
 #
 # District_4.9_Clip_1.mp4 and District_4.9_Closing.mp4 carry a -90deg
-# rotation tag, so ffmpeg auto-rotates to portrait before the scale filter
-# runs: "scale=1280:-2" yields ~1280x2276 (3x the pixels of a 1280x720
-# landscape frame), which blew well past the ~8MB budget at crf 26/28.
-# Bumped crf until each landed under ~8MB; scale/trim points left as-is.
+# rotation tag, so ffmpeg auto-rotates to portrait (1080x1920) before the
+# scale filter runs. Scale DOWN to 720 on the wide side ("scale=720:-2"
+# yields 720x1280) rather than up to 1280 (which would yield ~1280x2276,
+# 3x the pixels of a 1280x720 landscape frame) -- that upscale is what
+# previously blew past the ~8MB budget and forced crf into the 35-39
+# range, destroying quality. At the correct portrait resolution, a normal
+# crf 26 comfortably fits the budget.
 ffmpeg -y -ss 00:01:30 -t 20 -i "$SRC/District_4.9_Clip_1.mp4" \
-  -vf "scale=1280:-2" -c:v libx264 -crf 39 -preset slow \
+  -vf "scale=720:-2" -c:v libx264 -crf 26 -preset slow \
   -c:a aac -b:a 96k -movflags +faststart "$OUT/district-loop-1.mp4"
 
 ffmpeg -y -ss 00:03:00 -t 20 -i "$SRC/District_4.9_Closing.mp4" \
-  -vf "scale=1280:-2" -c:v libx264 -crf 35 -preset slow \
+  -vf "scale=720:-2" -c:v libx264 -crf 26 -preset slow \
   -c:a aac -b:a 96k -movflags +faststart "$OUT/district-loop-2.mp4"
 
 # district_1.15.26.mp4 is actually native landscape 1920x1080 (no rotation
